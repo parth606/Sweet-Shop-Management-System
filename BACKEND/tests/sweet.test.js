@@ -41,7 +41,7 @@ describe('Sweet API', () => {
 
   // Test for searching sweets by name, category, or price range
   it('should search for sweets by name, category, or price range', async () => {
-    // Add sweets with different names, categories, and prices
+    
     await request(app).post('/api/sweets').send({ name: 'Kaju Katli', price: 25, category: 'Dry Fruit' });
     await request(app).post('/api/sweets').send({ name: 'Gulab Jamun', price: 15, category: 'Milk' });
     await request(app).post('/api/sweets').send({ name: 'Soan Papdi', price: 10, category: 'Gram Flour' });
@@ -60,6 +60,29 @@ describe('Sweet API', () => {
     res = await request(app).get('/api/sweets').query({ minPrice: 10, maxPrice: 15 });
     expect(res.statusCode).toBe(200);
     expect(res.body.every(sweet => sweet.price >= 10 && sweet.price <= 15)).toBe(true);
+  });
+
+  // Test for purchasing sweets and stock management
+  it('should allow users to purchase sweets and decrease stock, or raise error if not enough stock', async () => {
+    // Add a sweet with stock
+    const addRes = await request(app)
+      .post('/api/sweets')
+      .send({ name: 'Peda', price: 20, category: 'Milk', stock: 5 });
+    const sweetId = addRes.body.id;
+
+    // Purchase 3 units (should succeed)
+    let purchaseRes = await request(app)
+      .post('/api/sweets/purchase')
+      .send({ id: sweetId, quantity: 3 });
+    expect(purchaseRes.statusCode).toBe(200);
+    expect(purchaseRes.body.remainingStock).toBe(2);
+
+    // Purchase 3 more units (should fail, only 2 left)
+    purchaseRes = await request(app)
+      .post('/api/sweets/purchase')
+      .send({ id: sweetId, quantity: 3 });
+    expect(purchaseRes.statusCode).toBe(400);
+    expect(purchaseRes.body.error).toMatch(/not enough stock/i);
   });
 
 });

@@ -4,8 +4,8 @@ let sweets = [];
 let idCounter = 1;
 
 // Adds a new sweet to the collection
-function addSweet(name, price, category) {
-  const sweet = { id: idCounter++, name, price, category };
+function addSweet(name, price, category, stock = 0) {
+  const sweet = { id: idCounter++, name, price, category, stock };
   sweets.push(sweet);
   return sweet;
 }
@@ -37,9 +37,20 @@ function searchSweets({ name, category, minPrice, maxPrice }) {
   });
 }
 
+// Purchase a sweet by ID and quantity
+function purchaseSweet(id, quantity) {
+  const sweet = sweets.find(s => s.id === id);
+  if (!sweet) throw new Error('Sweet not found');
+  if (sweet.stock === undefined) sweet.stock = 0;
+  if (sweet.stock < quantity) throw new Error('Not enough stock');
+  sweet.stock -= quantity;
+  return sweet.stock;
+}
+
 module.exports = {
   addSweet,
   removeSweet,
   getAllSweets,
   searchSweets,
+  purchaseSweet,
 };

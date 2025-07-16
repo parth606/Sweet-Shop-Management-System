@@ -9,6 +9,8 @@ router.post('/', sweetController.addSweet);
 router.delete('/:id', sweetController.removeSweet);
 // Route to get all sweets
 router.get('/', sweetController.getAllSweets);
+// Route to purchase sweets
+router.post('/purchase', sweetController.purchaseSweet);
 
 
 module.exports = router;

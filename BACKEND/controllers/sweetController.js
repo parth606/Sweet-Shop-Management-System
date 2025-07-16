@@ -4,8 +4,8 @@ const Sweet = require('../models/sweet');
 // Handles POST request to add a new sweet
 exports.addSweet = (req, res) => {
   try {
-    const { name, price, category } = req.body;
-    const sweet = Sweet.addSweet(name, price, category);
+    const { name, price, category, stock } = req.body;
+    const sweet = Sweet.addSweet(name, price, category, stock);
     res.json(sweet);
   } catch (err) {
     console.error(err);
@@ -43,6 +43,23 @@ exports.getAllSweets = (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
+  }
+};
+
+// Handles POST request to purchase sweets
+exports.purchaseSweet = (req, res) => {
+  try {
+    const { id, quantity } = req.body;
+    const remainingStock = Sweet.purchaseSweet(id, quantity);
+    res.status(200).json({ remainingStock });
+  } catch (err) {
+    if (err.message === 'Not enough stock') {
+      res.status(400).json({ error: err.message });
+    } else if (err.message === 'Sweet not found') {
+      res.status(404).json({ error: err.message });
+    } else {
+      res.status(500).json({ error: err.message });
+    }
   }
 };
 
