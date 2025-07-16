@@ -18,4 +18,22 @@ describe('Sweet API', () => {
     expect(res.body.name).toBe('Ladoo');
   });
 
+  // Test for removing a sweet
+  it('should remove a sweet', async () => {
+    // First, add a sweet to ensure there is one to delete
+    const addRes = await request(app)
+      .post('/api/sweets')
+      .send({ name: 'Barfi', price: 15 });
+    const sweetId = addRes.body.id;
+
+    // Now, remove the sweet by ID
+    const deleteRes = await request(app)
+      .delete(`/api/sweets/${sweetId}`);
+
+    // Expect a successful deletion
+    expect(deleteRes.statusCode).toBe(200);
+    // Optionally, check the response body or message
+    // expect(deleteRes.body.message).toBe('Sweet removed');
+  });
+
 });

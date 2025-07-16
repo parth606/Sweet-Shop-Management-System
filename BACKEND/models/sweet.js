@@ -10,9 +10,17 @@ function addSweet(name, price) {
   return sweet;
 }
 
-
+// Removes a sweet by ID
+function removeSweet(id) {
+  const index = sweets.findIndex(sweet => sweet.id === id);
+  if (index !== -1) {
+    sweets.splice(index, 1);
+    return true;
+  }
+  return false;
+}
 
 module.exports = {
   addSweet,
- 
+  removeSweet,
 };

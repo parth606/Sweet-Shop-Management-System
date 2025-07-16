@@ -5,6 +5,8 @@ const sweetController = require('../controllers/sweetController');
 
 // Route to add a new sweet
 router.post('/', sweetController.addSweet);
+// Route to remove a sweet by ID
+router.delete('/:id', sweetController.removeSweet);
 
 
 module.exports = router;
