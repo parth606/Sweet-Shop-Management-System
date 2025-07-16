@@ -29,3 +29,14 @@ exports.removeSweet = (req, res) => {
   }
 };
 
+// Handles GET request to list all sweets
+exports.getAllSweets = (req, res) => {
+  try {
+    const allSweets = Sweet.getAllSweets();
+    res.status(200).json(allSweets);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+

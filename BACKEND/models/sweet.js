@@ -20,7 +20,13 @@ function removeSweet(id) {
   return false;
 }
 
+// Returns all sweets
+function getAllSweets() {
+  return sweets;
+}
+
 module.exports = {
   addSweet,
   removeSweet,
+  getAllSweets,
 };
