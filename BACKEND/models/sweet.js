@@ -47,10 +47,20 @@ function purchaseSweet(id, quantity) {
   return sweet.stock;
 }
 
+// Restock a sweet by ID and quantity
+function restockSweet(id, quantity) {
+  const sweet = sweets.find(s => s.id === id);
+  if (!sweet) throw new Error('Sweet not found');
+  if (sweet.stock === undefined) sweet.stock = 0;
+  sweet.stock += quantity;
+  return sweet.stock;
+}
+
 module.exports = {
   addSweet,
   removeSweet,
   getAllSweets,
   searchSweets,
   purchaseSweet,
+  restockSweet,
 };

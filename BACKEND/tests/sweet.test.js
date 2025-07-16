@@ -85,4 +85,20 @@ describe('Sweet API', () => {
     expect(purchaseRes.body.error).toMatch(/not enough stock/i);
   });
 
+  // Test for restocking sweets (increasing stock)
+  it('should allow users to restock sweets, increasing their quantity of stock', async () => {
+    // Add a sweet with initial stock
+    const addRes = await request(app)
+      .post('/api/sweets')
+      .send({ name: 'Sandesh', price: 22, category: 'Milk', stock: 2 });
+    const sweetId = addRes.body.id;
+
+    // Restock by 5 units
+    const restockRes = await request(app)
+      .patch(`/api/sweets/${sweetId}/restock`)
+      .send({ quantity: 5 });
+    expect(restockRes.statusCode).toBe(200);
+    expect(restockRes.body.stock).toBe(7);
+  });
+
 });

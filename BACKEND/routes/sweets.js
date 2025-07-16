@@ -11,6 +11,8 @@ router.delete('/:id', sweetController.removeSweet);
 router.get('/', sweetController.getAllSweets);
 // Route to purchase sweets
 router.post('/purchase', sweetController.purchaseSweet);
+// Route to restock sweets
+router.patch('/:id/restock', sweetController.restockSweet);
 
 
 module.exports = router;

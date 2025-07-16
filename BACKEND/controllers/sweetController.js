@@ -63,3 +63,19 @@ exports.purchaseSweet = (req, res) => {
   }
 };
 
+// Handles PATCH request to restock sweets
+exports.restockSweet = (req, res) => {
+  try {
+    const id = parseInt(req.params.id, 10);
+    const { quantity } = req.body;
+    const stock = Sweet.restockSweet(id, quantity);
+    res.status(200).json({ stock });
+  } catch (err) {
+    if (err.message === 'Sweet not found') {
+      res.status(404).json({ error: err.message });
+    } else {
+      res.status(500).json({ error: err.message });
+    }
+  }
+};
+
