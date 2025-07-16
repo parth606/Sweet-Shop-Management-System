@@ -4,8 +4,8 @@ const Sweet = require('../models/sweet');
 // Handles POST request to add a new sweet
 exports.addSweet = (req, res) => {
   try {
-    const { name, price } = req.body;
-    const sweet = Sweet.addSweet(name, price);
+    const { name, price, category } = req.body;
+    const sweet = Sweet.addSweet(name, price, category);
     res.json(sweet);
   } catch (err) {
     console.error(err);
@@ -29,11 +29,17 @@ exports.removeSweet = (req, res) => {
   }
 };
 
-// Handles GET request to list all sweets
+// Handles GET request to list all or search sweets
 exports.getAllSweets = (req, res) => {
   try {
-    const allSweets = Sweet.getAllSweets();
-    res.status(200).json(allSweets);
+    const { name, category, minPrice, maxPrice } = req.query;
+    let result;
+    if (name || category || minPrice !== undefined || maxPrice !== undefined) {
+      result = Sweet.searchSweets({ name, category, minPrice, maxPrice });
+    } else {
+      result = Sweet.getAllSweets();
+    }
+    res.status(200).json(result);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });

@@ -4,8 +4,8 @@ let sweets = [];
 let idCounter = 1;
 
 // Adds a new sweet to the collection
-function addSweet(name, price) {
-  const sweet = { id: idCounter++, name, price };
+function addSweet(name, price, category) {
+  const sweet = { id: idCounter++, name, price, category };
   sweets.push(sweet);
   return sweet;
 }
@@ -25,8 +25,21 @@ function getAllSweets() {
   return sweets;
 }
 
+// Search sweets by name, category, and price range
+function searchSweets({ name, category, minPrice, maxPrice }) {
+  return sweets.filter(sweet => {
+    let match = true;
+    if (name) match = match && sweet.name.toLowerCase().includes(name.toLowerCase());
+    if (category) match = match && sweet.category === category;
+    if (minPrice !== undefined) match = match && sweet.price >= Number(minPrice);
+    if (maxPrice !== undefined) match = match && sweet.price <= Number(maxPrice);
+    return match;
+  });
+}
+
 module.exports = {
   addSweet,
   removeSweet,
   getAllSweets,
+  searchSweets,
 };
