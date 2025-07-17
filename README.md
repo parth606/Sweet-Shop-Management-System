@@ -42,7 +42,7 @@ It allows users to manage sweets inventory, perform CRUD operations, purchase an
 
 ## 🚀 Getting Started
 
-## 📁 1. CLONE THE REPOSITORY
+### 📁 1. CLONE THE REPOSITORY
 
 ```bash
 git clone https://github.com/parth606/Sweet-Shop-Management-System.git
@@ -50,7 +50,7 @@ cd Sweet-Shop-Management-System
 
 ---
 
-## 📁 2. BACKEND SETUP
+### 📁 2. BACKEND SETUP
 
 ```bash
 cd BACKEND
@@ -59,7 +59,7 @@ node index.js
 
 ---
 
-## 📁 3. FRONTEND SETUP
+### 📁 3. FRONTEND SETUP
 ```bash
 cd frontend
 npm install
