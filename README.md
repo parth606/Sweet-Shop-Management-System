@@ -39,29 +39,23 @@ It allows users to manage sweets inventory, perform CRUD operations, purchase an
 - Background image support and animated title
 
 ---
+## Getting Started
 
-## 🚀 Getting Started
-
-### 📁 1. CLONE THE REPOSITORY
-
-```bash
-git clone https://github.com/parth606/Sweet-Shop-Management-System.git
+### 1. Clone the repository
+```
+git clone <your-repo-url>
 cd Sweet-Shop-Management-System
+```
 
----
-
-### 📁 2. BACKEND SETUP
-
-```bash
-cd BACKEND
-npm install
-node index.js
-
----
-
-### 📁 3. FRONTEND SETUP
-```bash
+### 2. frontend setup
+```
 cd frontend
 npm install
 npm run dev
+```
 
+### 3. Run the backend server
+```
+cd BACKEND
+npm test
+```
